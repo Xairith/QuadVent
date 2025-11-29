@@ -1,0 +1,44 @@
+services:
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    depends_on:
+      - backend
+
+  backend:
+    image: bitnami/laravel:latest
+    user: root
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_DATABASE=ticketing
+      - DB_USERNAME=user
+      - DB_PASSWORD=password
+      - REDIS_HOST=redis
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+      - redis
+
+  database:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=ticketing
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

@@ -1,0 +1,24 @@
+# Dependency directories
+node_modules/
+vendor/
+
+# Environment variables (NEVER commit these!)
+.env
+.env.local
+.env.production
+
+# Docker volumes/data (Don't commit your database files!)
+/mysql
+/postgres
+/redis
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.DS_Store
+
+# Build outputs
+.next/
+dist/
+build/
